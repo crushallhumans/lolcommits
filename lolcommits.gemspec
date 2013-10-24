@@ -3,15 +3,15 @@ $:.push File.expand_path("../lib", __FILE__)
 require "lolcommits/version"
 
 Gem::Specification.new do |s|
-  s.name        = "lolcommits"
+  s.name        = "lolcommits_tumblr"
   s.version     = Lolcommits::VERSION
-  s.authors     = ["Matthew Rothenberg"]
-  s.email       = ["mrothenberg@gmail.com"]
+  s.authors     = ["Matthew Rothenberg","Conrad Rushing"]
+  s.email       = ["mrothenberg@gmail.com","conrad.rusing@gmail.com"]
   s.homepage    = "http://mroth.github.com/lolcommits/"
   s.summary     = %q{Capture webcam image on git commit for lulz.}
-  s.description = %q{Takes a snapshot with your webcam every time you git commit code, and archives a lolcat style image with it.}
+  s.description = %q{Takes a snapshot with your webcam every time you git commit code, and archives a lolcat style image with it. Uploads to internal server for further Tumblr lolz}
   s.license     = "LGPL-3"
-  s.rubyforge_project = "lolcommits"
+  s.rubyforge_project = "lolcommits_tumblr"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

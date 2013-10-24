@@ -1,12 +1,15 @@
 #!/usr/bin/env ruby
 
 begin
-  require 'lolcommits'
-rescue LoadError
-  require 'rubygems'
-  require 'lolcommits'
+#  require 'lolcommits'
+#rescue LoadError
+#  require 'rubygems'
+#  require 'lolcommits'
 end
 
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+require '/Users/crushing/Workspace/branchselfie/lolcommits/lib/lolcommits'
 include Lolcommits
 require "launchy"
 require "choice"

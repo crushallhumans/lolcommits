@@ -3,7 +3,7 @@ module Lolcommits
 
   class Runner
     attr_accessor :capture_delay, :capture_stealth, :capture_device, :message, :sha,
-      :snapshot_loc, :main_image, :repo, :config, :repo_internal_path,
+      :snapshot_loc, :main_image, :repo, :config, :repo_internal_path, :branch, :user,
       :font, :capture_animate
 
     include Methadone::CLILogging
@@ -25,20 +25,30 @@ module Lolcommits
         self.send("#{attr}=", val)
       end
 
-      if self.sha.nil? || self.message.nil?
+      #if self.sha.nil? || self.message.nil?
         git_info = GitInfo.new
         self.sha = git_info.sha if self.sha.nil?
         self.message = git_info.message if self.message.nil?
         self.repo_internal_path = git_info.repo_internal_path
         self.repo = git_info.repo
-      end
+        self.branch = git_info.branch
+        self.user = ENV['USER']
+      #end
     end
 
     def run
       die_if_rebasing!
 
       run_callbacks :run do
-        puts "*** Preserving this moment in history." unless capture_stealth
+        puts "*** WOO Preserving this moment in history." unless capture_stealth
+
+        debug "Runner: self.sha = #{self.sha}"
+        debug "Runner: self.message = #{self.message}"
+        debug "Runner: self.repo_internal_path = #{self.repo_internal_path}"
+        debug "Runner: self.repo = #{self.repo}"
+        debug "Runner: self.branch = #{self.branch}"
+        debug "Runner: self.user = #{self.user}"
+
         self.snapshot_loc = self.config.raw_image(image_file_type)
         self.main_image   = self.config.main_image(self.sha, image_file_type)
         capturer = capturer_class.new(
