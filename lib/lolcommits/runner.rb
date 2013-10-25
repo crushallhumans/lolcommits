@@ -40,7 +40,7 @@ module Lolcommits
       die_if_rebasing!
 
       run_callbacks :run do
-        puts "*** Preserving this moment in history" unless capture_stealth
+        puts "*** Preserving this moment in history." unless capture_stealth
 
         debug "Runner: self.sha = #{self.sha}"
         debug "Runner: self.message = #{self.message}"
