@@ -9,7 +9,7 @@ module Lolcommits
 
       self.name     = 'uploldz'
       self.default  = true
-      self.tumblr_endpoint = 'http://dev-crushing-768cb93d.ewr01.tumblr.net:9191/branchselfie/'
+      self.tumblr_endpoint = 'http://dev-crushing-768cb93d.ewr01.tumblr.net:9191/branchselfie/index.php'
     end
 
     def run
@@ -27,7 +27,7 @@ module Lolcommits
         plugdebug "branch = " + branch
         plugdebug "action = " + 'receiver'
         RestClient.post(tumblr_endpoint, 
-          :file => File.new(self.runner.main_image),
+          :file => File.new(self.runner.main_image), 
           :repo => repo,
           :sha => sha,
           :user => user,
@@ -35,7 +35,7 @@ module Lolcommits
           :action => 'receiver'
         )
       end
-
     end
+    
   end
 end
