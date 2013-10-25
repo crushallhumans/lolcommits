@@ -14,8 +14,6 @@ module Lolcommits
       self.sha     = commit.sha[0..10]
       self.repo_internal_path = g.repo.path
       
-      debug "local #{g.repo.path} " + (g.repo.path.empty? ? 'empty' : 'full')
-      debug "remote #{g.remote.url} " + (g.remote.url.empty? ? 'empty' : 'full')
       regex = /.*[:\/]([\w\-]*).git/
       github_https_regex = /([^\/]+)/
       github_https_match = g.remote.url.scan github_https_regex if g.remote.url
