@@ -10,15 +10,12 @@ module Lolcommits
       self.name     = 'uploldz'
       self.default  = true
       self.tumblr_endpoint = 'http://dev-crushing-768cb93d.ewr01.tumblr.net:9191/branchselfie/'
-      self.options.concat(['endpoint'])
     end
 
     def run
       repo = self.runner.repo.to_s
       branch = self.runner.branch.to_s
       user = self.runner.user.to_s
-#      if configuration['endpoint'].empty?
-#        puts "Endpoint URL is empty, please run lolcommits --config to add one."
       if repo.empty?
         puts "Repo is empty, skipping upload"
       else
