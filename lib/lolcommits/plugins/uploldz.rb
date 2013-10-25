@@ -14,6 +14,7 @@ module Lolcommits
 
     def run
       repo = self.runner.repo.to_s
+      sha = self.runner.sha.to_s
       branch = self.runner.branch.to_s
       user = self.runner.user.to_s
       if repo.empty?
@@ -22,11 +23,13 @@ module Lolcommits
         plugdebug "Calling " + tumblr_endpoint
         plugdebug "repo = " + repo
         plugdebug "user = " + user
+        plugdebug "sha = " + sha
         plugdebug "branch = " + branch
         plugdebug "action = " + 'receiver'
         RestClient.post(tumblr_endpoint, 
           :file => File.new(self.runner.main_image),
           :repo => repo,
+          :sha => sha,
           :user => user,
           :branch => branch,
           :action => 'receiver'
