@@ -2,14 +2,16 @@ require 'rest_client'
 
 module Lolcommits
   class Uploldz < Plugin
-    attr_accessor :endpoint, :tumblr_endpoint
+    attr_accessor :endpoint, :tumblr_endpoint, :tumblr_serve_point
 
     def initialize(runner)
       super
 
       self.name     = 'uploldz'
       self.default  = true
-      self.tumblr_endpoint = 'http://dev-crushing-768cb93d.ewr01.tumblr.net:9191/branchselfie/index.php'
+      stub = 'http://dev-crushing-768cb93d.ewr01.tumblr.net:9191/branchselfie'
+      self.tumblr_serve_point = stub + '/files/'
+      self.tumblr_endpoint = stub + '/index.php'
     end
 
     def run
@@ -26,6 +28,11 @@ module Lolcommits
         plugdebug "sha = " + sha
         plugdebug "branch = " + branch
         plugdebug "action = " + 'receiver'
+
+        current_stub = self.tumblr_serve_point + user + '/' + repo + '/' + branch
+        puts 'See your last commit-selfie at ' + current_stub + '/current.jpg'
+        puts 'See your animated selfie-series at ' + current_stub + '/current_anim.gif'
+
         RestClient.post(tumblr_endpoint, 
           :file => File.new(self.runner.main_image), 
           :repo => repo,
@@ -36,6 +43,6 @@ module Lolcommits
         )
       end
     end
-    
+
   end
 end
