@@ -174,7 +174,8 @@ def do_capture
 end
 
 def fork_me?(&block)
-  if Choice.choices[:fork] || ENV['LOLCOMMITS_FORK']
+  # always fork
+  if Choice.choices[:fork] || ENV['LOLCOMMITS_FORK'] || true
     $stdout.sync = true
     write_pid fork {
       yield block
