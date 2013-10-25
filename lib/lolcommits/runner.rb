@@ -25,7 +25,7 @@ module Lolcommits
         self.send("#{attr}=", val)
       end
 
-      #if self.sha.nil? || self.message.nil?
+      if self.sha.nil? || self.message.nil?
         git_info = GitInfo.new
         self.sha = git_info.sha if self.sha.nil?
         self.message = git_info.message if self.message.nil?
@@ -33,14 +33,14 @@ module Lolcommits
         self.repo = git_info.repo
         self.branch = git_info.branch
         self.user = ENV['USER']
-      #end
+      end
     end
 
     def run
       die_if_rebasing!
 
       run_callbacks :run do
-        puts "*** WOO Preserving this moment in history." unless capture_stealth
+        puts "*** Preserving this moment in history." unless capture_stealth
 
         debug "Runner: self.sha = #{self.sha}"
         debug "Runner: self.message = #{self.message}"
