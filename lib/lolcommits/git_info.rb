@@ -14,9 +14,15 @@ module Lolcommits
       self.sha     = commit.sha[0..10]
       self.repo_internal_path = g.repo.path
       
+      debug "local #{g.repo.path} " + (g.repo.path.empty? ? 'empty' : 'full')
+      debug "remote #{g.remote.url} " + (g.remote.url.empty? ? 'empty' : 'full')
       regex = /.*[:\/]([\w\-]*).git/
-      match = g.remote.url.match regex if g.remote.url
-      if match
+      github_https_regex = /([^\/]+)/
+      github_https_match = g.remote.url.scan github_https_regex if g.remote.url
+      match = g.remote.url.scan regex if g.remote.url
+      if (github_https_match.count > 0)
+        self.repo = github_https_match[-1][0]
+      elsif (match)
         self.repo = match[1]
       elsif !g.repo.path.empty?
         self.repo = g.repo.path.split(File::SEPARATOR)[-2]
@@ -24,14 +30,17 @@ module Lolcommits
 
       branch = 'unknown'
       branches = `git branch`.split("\n")
+      debug "branches " + branches.to_s
       branch_regex = /^\s*\*\s*(.*)$/
       branches.each do |i|
         match = i.scan branch_regex
-        if (match) 
-          branch = match[0]
-          break if branch != 'unknown' 
+        if (match.count > 0) 
+          debug "branches '" + match.inspect + "'"
+          branch = match[0][0]
+          break
         end
       end
+      self.branch = branch
 
       debug "GitInfo: parsed the following values from commit:"
       debug "GitInfo: \t#{self.message}"
