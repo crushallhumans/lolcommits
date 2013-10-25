@@ -18,7 +18,7 @@ module Lolcommits
       github_https_regex = /([^\/]+)/
       github_https_match = g.remote.url.scan github_https_regex if g.remote.url
       match = g.remote.url.scan regex if g.remote.url
-      if (github_https_match.nil? && (github_https_match.count > 0))
+      if (github_https_match && (github_https_match.count > 0))
         self.repo = github_https_match[-1][0]
       elsif (match)
         self.repo = match[1]
